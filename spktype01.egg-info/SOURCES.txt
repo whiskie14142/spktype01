@@ -1,0 +1,9 @@
+README.txt
+setup.py
+spktype01.py
+spktype01.egg-info/PKG-INFO
+spktype01.egg-info/SOURCES.txt
+spktype01.egg-info/dependency_links.txt
+spktype01.egg-info/requires.txt
+spktype01.egg-info/top_level.txt
+test/test_spktype01.py
