@@ -1,12 +1,24 @@
 # -*- coding: utf-8 -*-
-"""An supporting module for jplephem to handle data type 1
+"""A supporting module for jplephem to handle data type 1 (Version 1.0.0)
 
-Compute position and velocity of a celestial small body, from a NASA 
-SPICE SPK ephemeris kernel file of data type 1 (Modified Difference Arrays).
+This module computes position and velocity of a celestial small body, from a 
+NASA SPICE SPK ephemeris kernel file of data type 1 (Modified Difference 
+Arrays).
 http://naif.jpl.nasa.gov/pub/naif/toolkit_docs/FORTRAN/req/spk.html
 
 You can get SPK files for many solar system small bodies from HORIZONS 
-system of NASA/JPL: http://ssd.jpl.nasa.gov/x/spk.html
+system of NASA/JPL.  See https://ssd.jpl.nasa.gov/?horizons
+
+This module reads SPK files of data type 1, one of the types of binary SPK 
+file.  
+
+At the point of Oct. 2018, HORIZONS system provides files of type 21 for 
+binary celestial small bodies by default.  You can get type 1 binary SPK file 
+for celestial small bodies through TELNET interface by answering back '1' for 
+'SPK file format'.
+
+Module required:
+    jplephem (version 2.6 or later)
 
 Usage:
     from spktype01 import SPKType01
@@ -14,7 +26,7 @@ Usage:
     position, velocity = kernel.compute_type01(center, target, jd)
     
     where:
-        center - SPKID of central body (10 for Sol)
+        center - SPKID of central body (0 for SSB, 10 for Sun, etc.)
         target - SPKID of target body
         jd - time for computation (Julian date)
 
@@ -67,6 +79,10 @@ class SPKType01(object):
         """
         return cls(DAF(open(path, 'rb')))
 
+    def close(self):
+        """Close this SPK file."""
+        self.daf.file.close()
+
     def __str__(self):
         daf = self.daf
         d = lambda b: b.decode('latin-1')
@@ -80,7 +96,7 @@ class SPKType01(object):
     def compute_type01(self, center, target, jd1, jd2=0.0):
         """Compute position and velocity of target from SPK data (data type 1).
         Inputs:
-            center - SPKID of the central body (10 for Sol)
+            center - SPKID of the central body (0 for SSB, 10 for Sun, etc)
             target - SPKID of the target
             jd1, jd2 - Julian date of epoch for computation.  (jd1 + jd2) will 
                 be used for computation.  If you want precise definition of 
@@ -413,7 +429,7 @@ class SPKType01(object):
         
 
 class Segment(object):
-    """A single segment of an SPK file.
+    """A single segment of a SPK file.
 
     There are several items of information about each segment that are
     loaded from the underlying SPK file, and made available as object
