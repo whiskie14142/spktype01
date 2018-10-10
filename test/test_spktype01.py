@@ -61,3 +61,4 @@ for testcase in range(2):
             print(count, refjd, prange, vrange)
     print('Checked count = ', count, ',  Error count = ', err)
     csvfile.close()
+kernel.close()

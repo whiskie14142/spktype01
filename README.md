@@ -16,6 +16,7 @@ This module reads SPK files of data type 1, one of the types of binary SPK file.
     kernel = SPKType01.open('path')
     position, velocity = kernel.compute_type01(center, target, jd)
     print(kernel)     ---- this line prints information of all segments
+    kernel.close()
     
     where:
         center - SPKID of central body (0 for SSB, 10 for Sun, etc.)
@@ -23,4 +24,11 @@ This module reads SPK files of data type 1, one of the types of binary SPK file.
         jd - time for computation (Julian date)
         position - a numpy array (x, y, z)
         velocity - a numpy array (xd, yd, zd)
-        
+
+### Modification Log
+##### 1.0.0 October 9, 2018
+* close function is added
+* stable release
+
+##### 0.1.0 October 10, 2016
+* beta release
