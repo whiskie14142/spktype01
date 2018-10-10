@@ -10,15 +10,15 @@ This module reads SPK files of data type 1, one of the types of binary SPK file.
 
 At the point of Oct. 2018, HORIZONS system provides files of type 21 for binary SPK files by default.  You can get type 1 binary SPK file for celestial small bodies through TELNET interface by answering back '1' for 'SPK file format'.
 
-## Module required
+### Module required
 * jplephem (version 2.6 or later)
 * numpy
 
-    Usage:
-        from spktype01 import SPKType01
-        kernel = SPKType01.open('path')
-        position, velocity = kernel.compute_type01(center, target, jd)
-        print(kernel)     ---- this line prints information of all segments
+### Usage
+    from spktype01 import SPKType01
+    kernel = SPKType01.open('path')
+    position, velocity = kernel.compute_type01(center, target, jd)
+    print(kernel)     ---- this line prints information of all segments
     
     where:
         center - SPKID of central body (0 for SSB, 10 for Sun, etc.)
